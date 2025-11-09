@@ -1,3 +1,0 @@
-# No external dependencies for Netlify Functions
-# Using built-in Python modules only
-

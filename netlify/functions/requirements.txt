@@ -1,2 +1,0 @@
-# No external dependencies for initial deployment
-# We'll use built-in Python modules only
