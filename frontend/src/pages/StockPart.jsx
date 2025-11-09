@@ -239,13 +239,21 @@ export default function StockPart() {
 
   // Add coordinates to FSL locations
   const fslWithCoords = useMemo(() => {
+    console.log('[StockPart] Processing FSL locations:', fslLocations.length);
     return fslLocations.map(fsl => {
-      const city = fsl.fsl_city || fsl.fslcity || '';
+      // Handle different field name formats from JSON
+      const city = fsl['FSL City'] || fsl.fsl_city || fsl.fslcity || '';
       const coords = CITY_COORDINATES[city] || [-6.2088, 106.8456]; // Default to Jakarta
+      console.log(`[StockPart] FSL ${fsl['FSL Name'] || fsl.fsl_name} in ${city} -> coords:`, coords);
       return {
         ...fsl,
         latitude: coords[0],
-        longitude: coords[1]
+        longitude: coords[1],
+        // Normalize field names for easier access
+        fsl_city: city,
+        fsl_name: fsl['FSL Name'] || fsl.fsl_name || fsl.fslname,
+        fsl_id: fsl['FSL ID'] || fsl.fsl_id || fsl.fslid,
+        region: fsl['Region '] || fsl.region || fsl['region ']
       };
     });
   }, [fslLocations]);
