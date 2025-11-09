@@ -2,14 +2,20 @@
   "buildCommand": "echo 'Using pre-built dist folder'",
   "outputDirectory": "frontend/dist",
   "framework": null,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "headers": {
+        "Content-Type": "application/json"
+      }
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
