@@ -10,10 +10,3 @@
   [headers.values]
     Content-Type = "application/json"
     Cache-Control = "public, max-age=300"
-
-# SPA fallback - don't force, let existing files be served
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
