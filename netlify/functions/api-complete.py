@@ -3,8 +3,12 @@ import os
 import sys
 from typing import Dict, Any
 
-# Add backend to path
+# Add root directory and backend to path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'backend'))
+
+# Set data directory to functions/data for Netlify
+os.environ['DATA_DIR'] = os.path.join(os.path.dirname(__file__), 'data')
 
 from services.engineer_service import EngineerService
 from services.machine_service import MachineService
