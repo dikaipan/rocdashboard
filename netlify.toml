@@ -1,15 +1,10 @@
 [build]
   publish = "frontend/dist"
-  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api"
-  status = 200
-
+# SPA fallback - exclude API json files
 [[redirects]]
   from = "/*"
   to = "/index.html"

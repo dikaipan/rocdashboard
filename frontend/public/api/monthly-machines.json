@@ -1,0 +1,622 @@
+[
+  {
+    "﻿Month": "6",
+    "Year": "2015",
+    "Total machine": "8"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2015",
+    "Total machine": "12"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2015",
+    "Total machine": "24"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2015",
+    "Total machine": "42"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2015",
+    "Total machine": "116"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2015",
+    "Total machine": "167"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2015",
+    "Total machine": "258"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2016",
+    "Total machine": "311"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2016",
+    "Total machine": "339"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2016",
+    "Total machine": "410"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2016",
+    "Total machine": "533"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2016",
+    "Total machine": "545"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2016",
+    "Total machine": "557"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2016",
+    "Total machine": "559"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2016",
+    "Total machine": "704"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2016",
+    "Total machine": "862"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2016",
+    "Total machine": "967"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2016",
+    "Total machine": "1159"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2016",
+    "Total machine": "1170"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2017",
+    "Total machine": "1173"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2017",
+    "Total machine": "1175"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2017",
+    "Total machine": "1194"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2017",
+    "Total machine": "1210"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2017",
+    "Total machine": "1209"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2017",
+    "Total machine": "1210"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2017",
+    "Total machine": "1212"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2017",
+    "Total machine": "1324"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2017",
+    "Total machine": "1422"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2017",
+    "Total machine": "1634"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2017",
+    "Total machine": "2079"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2017",
+    "Total machine": "2220"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2018",
+    "Total machine": "2229"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2018",
+    "Total machine": "2242"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2018",
+    "Total machine": "2257"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2018",
+    "Total machine": "2303"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2018",
+    "Total machine": "2354"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2018",
+    "Total machine": "2360"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2018",
+    "Total machine": "2517"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2018",
+    "Total machine": "2655"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2018",
+    "Total machine": "2782"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2018",
+    "Total machine": "2810"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2018",
+    "Total machine": "3179"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2018",
+    "Total machine": "3241"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2019",
+    "Total machine": "3280"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2019",
+    "Total machine": "3404"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2019",
+    "Total machine": "3712"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2019",
+    "Total machine": "4067"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2019",
+    "Total machine": "4241"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2019",
+    "Total machine": "4261"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2019",
+    "Total machine": "4290"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2019",
+    "Total machine": "4546"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2019",
+    "Total machine": "4595"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2019",
+    "Total machine": "4636"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2019",
+    "Total machine": "4713"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2019",
+    "Total machine": "5327"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2020",
+    "Total machine": "5513"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2020",
+    "Total machine": "5516"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2020",
+    "Total machine": "5526"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2020",
+    "Total machine": "5536"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2020",
+    "Total machine": "5514"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2020",
+    "Total machine": "5619"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2020",
+    "Total machine": "5909"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2020",
+    "Total machine": "6187"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2020",
+    "Total machine": "6229"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2020",
+    "Total machine": "5937"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2020",
+    "Total machine": "6016"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2020",
+    "Total machine": "7370"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2021",
+    "Total machine": "7397"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2021",
+    "Total machine": "7769"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2021",
+    "Total machine": "7944"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2021",
+    "Total machine": "8093"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2021",
+    "Total machine": "8252"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2021",
+    "Total machine": "8443"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2021",
+    "Total machine": "8541"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2021",
+    "Total machine": "8653"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2021",
+    "Total machine": "8805"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2021",
+    "Total machine": "9652"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2021",
+    "Total machine": "10301"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2021",
+    "Total machine": "10371"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2022",
+    "Total machine": "10168"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2022",
+    "Total machine": "10147"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2022",
+    "Total machine": "10915"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2022",
+    "Total machine": "11019"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2022",
+    "Total machine": "11103"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2022",
+    "Total machine": "11432"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2022",
+    "Total machine": "11494"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2022",
+    "Total machine": "11534"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2022",
+    "Total machine": "12730"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2022",
+    "Total machine": "13493"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2022",
+    "Total machine": "13594"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2022",
+    "Total machine": "13714"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2023",
+    "Total machine": "13781"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2023",
+    "Total machine": "14076"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2023",
+    "Total machine": "14155"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2023",
+    "Total machine": "14191"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2023",
+    "Total machine": "14238"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2023",
+    "Total machine": "14307"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2023",
+    "Total machine": "13955"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2023",
+    "Total machine": "15428"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2023",
+    "Total machine": "16338"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2023",
+    "Total machine": "16578"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2023",
+    "Total machine": "16763"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2023",
+    "Total machine": "16992"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2024",
+    "Total machine": "17429"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2024",
+    "Total machine": "17320"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2024",
+    "Total machine": "17439"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2024",
+    "Total machine": "17451"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2024",
+    "Total machine": "17452"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2024",
+    "Total machine": "17331"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2024",
+    "Total machine": "17634"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2024",
+    "Total machine": "17973"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2024",
+    "Total machine": "18167"
+  },
+  {
+    "﻿Month": "10",
+    "Year": "2024",
+    "Total machine": "18627"
+  },
+  {
+    "﻿Month": "11",
+    "Year": "2024",
+    "Total machine": "18660"
+  },
+  {
+    "﻿Month": "12",
+    "Year": "2024",
+    "Total machine": "18747"
+  },
+  {
+    "﻿Month": "1",
+    "Year": "2025",
+    "Total machine": "18742"
+  },
+  {
+    "﻿Month": "2",
+    "Year": "2025",
+    "Total machine": "19012"
+  },
+  {
+    "﻿Month": "3",
+    "Year": "2025",
+    "Total machine": "18946"
+  },
+  {
+    "﻿Month": "4",
+    "Year": "2025",
+    "Total machine": "18989"
+  },
+  {
+    "﻿Month": "5",
+    "Year": "2025",
+    "Total machine": "18816"
+  },
+  {
+    "﻿Month": "6",
+    "Year": "2025",
+    "Total machine": "18779"
+  },
+  {
+    "﻿Month": "7",
+    "Year": "2025",
+    "Total machine": "18842"
+  },
+  {
+    "﻿Month": "8",
+    "Year": "2025",
+    "Total machine": "18969"
+  },
+  {
+    "﻿Month": "9",
+    "Year": "2025",
+    "Total machine": "19096"
+  }
+]
