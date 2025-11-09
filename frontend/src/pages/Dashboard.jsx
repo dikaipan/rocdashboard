@@ -80,10 +80,21 @@ export default function Dashboard() {
         
         if (response.ok) {
           const result = await response.json();
-          console.log("[DEBUG] Received data:", result);
+          console.log("[DEBUG] Received monthly data:", result);
+          console.log("[DEBUG] Data is array:", Array.isArray(result));
+          console.log("[DEBUG] Data length:", result?.length || 0);
+          
+          // API returns array directly, not wrapped in {rows: [...]}
+          const data = Array.isArray(result) ? result : (result.rows || []);
+          
+          console.log("[DEBUG] Processed monthly data:", data.length, 'records');
+          if (data.length > 0) {
+            console.log("[DEBUG] First record:", data[0]);
+          }
+          
           // Use requestAnimationFrame to batch state updates
           requestAnimationFrame(() => {
-            setMonthlyMachineData(result.rows || []);
+            setMonthlyMachineData(data);
           });
         } else {
           console.warn('[DEBUG] Monthly machine data not available');
@@ -762,21 +773,32 @@ export default function Dashboard() {
    * OPTIMIZED: Limit data points to improve chart rendering performance
    */
   const monthlyActivationData = useMemo(() => {
-    if (!monthlyMachineData || monthlyMachineData.length === 0) return [];
+    if (!monthlyMachineData || monthlyMachineData.length === 0) {
+      console.log("[DEBUG] No monthly machine data available");
+      return [];
+    }
+    
+    console.log("[DEBUG] Processing monthly activation data, records:", monthlyMachineData.length);
     
     const rawData = monthlyMachineData.map(item => {
-      // Format bulan dan tahun
-      const month = item.month || item.bulan || '';
-      const year = item.year || (new Date().getFullYear()); // Default tahun sekarang
-      
-      // Format jumlah aktivasi
-      const count = item.total_activation || item.total_aktifasi || item.jumlah || item.count || 0;
+      // Handle different field name formats from JSON
+      // JSON uses: "﻿Month", "Year", "Total machine" (with BOM and capitals)
+      const month = item['﻿Month'] || item.Month || item.month || item.bulan || '';
+      const year = item.Year || item.year || new Date().getFullYear();
+      const count = item['Total machine'] || item.total_machine || item.total_activation || 
+                    item.total_aktifasi || item.jumlah || item.count || 0;
       
       return {
-        month: `${month} ${year}`,
-        count: parseInt(count)
+        month: `${month}/${year}`,
+        count: parseInt(count) || 0
       };
     });
+    
+    console.log("[DEBUG] Processed activation data points:", rawData.length);
+    if (rawData.length > 0) {
+      console.log("[DEBUG] First data point:", rawData[0]);
+      console.log("[DEBUG] Last data point:", rawData[rawData.length - 1]);
+    }
     
     // Limit to 36 points (3 years of monthly data) to reduce rendering overhead
     return limitChartData(rawData, 36, 'sample');
