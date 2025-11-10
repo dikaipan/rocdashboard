@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/fix-build-vite.js",
+    "clean": "node scripts/clean-dist.js",
+    "prebuild": "node scripts/fix-build-vite.js && node scripts/clean-dist.js",
     "build": "vite build",
     "build:rolldown": "vite build",
     "lint": "eslint .",

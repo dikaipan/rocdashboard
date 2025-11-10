@@ -64,7 +64,10 @@ export function useCrud(config) {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${endpoint}/${id}`, {
+      // Encode ID to handle special characters in URL (spaces, parentheses, plus signs, etc.)
+      const encodedId = encodeURIComponent(id);
+
+      const response = await fetch(`${endpoint}/${encodedId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -79,8 +82,9 @@ export function useCrud(config) {
 
       const result = await response.json();
 
-      // Dispatch custom event to refresh data
-      if (eventName) {
+      // Dispatch custom event to refresh data only if there were actual changes
+      // Skip refresh if no_changes flag is set (no changes detected on backend)
+      if (eventName && !result.no_changes) {
         batchedDispatchEvent(eventName);
       }
 
@@ -101,7 +105,10 @@ export function useCrud(config) {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${endpoint}/${id}`, {
+      // Encode ID to handle special characters in URL (spaces, parentheses, plus signs, etc.)
+      const encodedId = encodeURIComponent(id);
+
+      const response = await fetch(`${endpoint}/${encodedId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -138,8 +145,10 @@ export function useCrud(config) {
       setError(null);
 
       const results = await Promise.all(
-        ids.map(id => 
-          fetch(`${endpoint}/${id}`, {
+        ids.map(id => {
+          // Encode ID to handle special characters in URL
+          const encodedId = encodeURIComponent(id);
+          return fetch(`${endpoint}/${encodedId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -149,8 +158,8 @@ export function useCrud(config) {
               throw new Error(`Failed to delete item ${id}`);
             }
             return res.json();
-          })
-        )
+          });
+        })
       );
 
       // Dispatch custom event to refresh data

@@ -22,23 +22,23 @@ const CustomConfirm = ({
 
   if (!isOpen) return null;
 
-  // Theme-aware styling
+  // Theme-aware styling with improved contrast
   const themeStyles = {
     dark: {
-      overlay: 'bg-black/60',
-      cardBg: 'bg-slate-800/95',
-      text: 'text-slate-200',
-      textMuted: 'text-slate-300',
-      closeButton: 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50',
-      cancelButton: 'bg-slate-700 hover:bg-slate-600 text-slate-200'
+      overlay: 'bg-black/70',
+      cardBg: 'bg-slate-800',
+      text: 'text-slate-100',
+      textMuted: 'text-slate-200',
+      closeButton: 'text-slate-300 hover:text-slate-100 hover:bg-slate-700/70',
+      cancelButton: 'bg-slate-700 hover:bg-slate-600 text-slate-100'
     },
     light: {
-      overlay: 'bg-black/40',
-      cardBg: 'bg-white/95',
+      overlay: 'bg-black/50',
+      cardBg: 'bg-white',
       text: 'text-gray-900',
-      textMuted: 'text-gray-700',
-      closeButton: 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/50',
-      cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+      textMuted: 'text-gray-800',
+      closeButton: 'text-gray-500 hover:text-gray-800 hover:bg-gray-200',
+      cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-900'
     }
   };
 

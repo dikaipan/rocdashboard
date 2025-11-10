@@ -63,7 +63,7 @@ import {
   Hash             // Icon untuk part number
 } from 'react-feather';
 
-// Recharts untuk visualisasi data
+// Recharts untuk visualisasi data - keep direct import for now (smaller charts)
 import { 
   ResponsiveContainer, 
   BarChart, Bar, 
@@ -71,29 +71,6 @@ import {
   Tooltip, 
   PieChart, Pie, Cell 
 } from 'recharts';
-
-// React Leaflet untuk interactive maps
-import { 
-  MapContainer,
-  TileLayer,
-  GeoJSON
-} from 'react-leaflet';
-
-// Leaflet core dan styles
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import indonesiaGeoJSON_RAW_STRING from "../data/peta_indonesia_geojson/indonesia-prov.geojson?raw";
-
-// Parse GeoJSON data
-const geoJsonData = JSON.parse(indonesiaGeoJSON_RAW_STRING);
-
-// Fix Leaflet default marker icon issue
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-});
 
 // Region colors for GeoJSON
 const regionColors = {
@@ -197,11 +174,13 @@ export default function StockPart() {
   const { rows: stockParts, loading: loadingStock } = useStockPartData();
   const { rows: fslLocations, loading: loadingFSL } = useFSLLocationData();
   
-  // Debug FSL data loading
+  // Debug FSL data loading (only in development)
   useEffect(() => {
-    console.log('[StockPart] FSL Locations loaded:', fslLocations?.length || 0, 'items');
-    if (fslLocations && fslLocations.length > 0) {
-      console.log('[StockPart] First FSL:', fslLocations[0]);
+    if (process.env.NODE_ENV === 'development' && fslLocations) {
+      // Only log if there's an issue (empty array) or in development
+      if (fslLocations.length === 0) {
+        console.warn('[StockPart] No FSL locations loaded');
+      }
     }
   }, [fslLocations]);
   
@@ -239,12 +218,16 @@ export default function StockPart() {
 
   // Add coordinates to FSL locations
   const fslWithCoords = useMemo(() => {
-    console.log('[StockPart] Processing FSL locations:', fslLocations.length);
     return fslLocations.map(fsl => {
       // Handle different field name formats from JSON
       const city = fsl['FSL City'] || fsl.fsl_city || fsl.fslcity || '';
       const coords = CITY_COORDINATES[city] || [-6.2088, 106.8456]; // Default to Jakarta
-      console.log(`[StockPart] FSL ${fsl['FSL Name'] || fsl.fsl_name} in ${city} -> coords:`, coords);
+      
+      // Only log in development if coordinates are missing
+      if (process.env.NODE_ENV === 'development' && !CITY_COORDINATES[city]) {
+        console.warn(`[StockPart] Missing coordinates for city: ${city}, using Jakarta default`);
+      }
+      
       return {
         ...fsl,
         latitude: coords[0],
@@ -545,7 +528,10 @@ export default function StockPart() {
       if (history.length > 1000) history.pop();
       localStorage.setItem('stockPartHistory', JSON.stringify(history));
       
-      console.log('📦 History Saved:', historyEntry);
+      // Only log in development
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📦 History Saved:', historyEntry);
+      }
       
       // Try backend API (non-blocking)
       fetch('/api/stock-history', {
@@ -560,7 +546,8 @@ export default function StockPart() {
       (p.part_number || p['part number']) === data.part_number
     );
     
-    if (originalPart) {
+    // Only log in development
+    if (process.env.NODE_ENV === 'development' && originalPart) {
       console.log('📦 Stock Updated (no reason provided):', {
         partNumber: data.part_number,
         grandTotalBefore: parseInt(originalPart.grand_total || originalPart['grand total'] || 0),
@@ -1245,11 +1232,11 @@ const handleExport = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <h2 className="text-lg font-semibold text-slate-100 mb-1">Stock Parts Management</h2>
-                <p className="text-xs text-slate-400">Kelola data stok spare part dengan fitur CRUD</p>
+                <p className={`text-xs ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>Kelola data stok spare part dengan fitur CRUD</p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={16} />
+                  <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-slate-300' : 'text-gray-500'}`} size={16} />
                   <input
                     type="text"
                     placeholder="Search parts..."
@@ -1258,10 +1245,10 @@ const handleExport = () => {
                       setSearchQuery(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 focus:outline-none focus:border-blue-500 w-64"
+                    className={`pl-10 pr-4 py-2 ${isDark ? 'bg-slate-800 border-slate-700 text-slate-100' : 'bg-white border-gray-300 text-gray-900'} border rounded-lg focus:outline-none focus:border-blue-500 w-64`}
                   />
                 </div>
-                <span className="text-xs text-slate-400">{filteredParts.length} parts</span>
+                <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>{filteredParts.length} parts</span>
                 
                 <button
                   onClick={handleAdd}

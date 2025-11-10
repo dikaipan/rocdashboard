@@ -8,6 +8,8 @@ from .stock_parts import stock_part_bp
 from .fsl_locations import fsl_bp
 from .uploads import upload_bp
 from .monthly_machines import monthly_machine_bp
+from .tools import tool_bp
+from .baby_parts import baby_part_bp
 
 def register_routes(app: 'Flask') -> None:
     """
@@ -22,3 +24,5 @@ def register_routes(app: 'Flask') -> None:
     app.register_blueprint(fsl_bp, url_prefix='/api')
     app.register_blueprint(upload_bp, url_prefix='/api')
     app.register_blueprint(monthly_machine_bp, url_prefix='/api')
+    app.register_blueprint(tool_bp, url_prefix='/api')
+    app.register_blueprint(baby_part_bp, url_prefix='/api')

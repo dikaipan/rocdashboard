@@ -4,9 +4,14 @@ import FilterTabs from "../components/ui/FilterTabs.jsx";
 import { useEngineerData, useMachineData, useStockPartData, useFSLLocationData } from "../hooks/useEngineerData.js";
 import { useStockPartKPIs } from "../hooks/useStockPartKPIs.js";
 import { useMachineKPIs } from "../hooks/useMachineKPIs.js";
+// Lazy load heavy components for better performance
+const FullscreenChartModal = lazy(() => import("../components/dashboard/FullscreenChartModal.jsx"));
+const MapWithRegions = lazy(() => import("../components/map/MapWithRegions.jsx"));
+const SkillProgress = lazy(() => import("../components/charts/SkillProgress.jsx"));
+
+// Import Recharts directly - it's already optimized by Vite
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
-import SkillProgress from "../components/charts/SkillProgress.jsx";
-import MapWithRegions from "../components/map/MapWithRegions.jsx";
+
 import { CHART_COLORS_DARK, CHART_COLORS_LIGHT } from "../utils/chartConfig.js";
 import { useTheme } from "../contexts/ThemeContext.jsx";
 import { normalizeText, toTitleCase, normalizeAreaGroup } from "../utils/textUtils.js";
@@ -14,9 +19,6 @@ import { parseInstallYear, calculateMachineAge, categorizeByRange, groupByField,
 import { limitChartData } from "../utils/chartOptimization.js";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import LoadingSkeleton from "../components/common/LoadingSkeleton.jsx";
-
-// Lazy load heavy modal component
-const FullscreenChartModal = lazy(() => import("../components/dashboard/FullscreenChartModal.jsx"));
 import { getGradientCard, getKPICard, TEXT_STYLES, BUTTON_STYLES, cn } from "../constants/styles";
 import { X } from "react-feather";
 
@@ -74,23 +76,23 @@ export default function Dashboard() {
     const fetchMonthlyData = async () => {
       try {
         setLoadingMonthly(true);
-        console.log("[DEBUG] Fetching monthly machine data...");
         
         // Fetch data from API
         const response = await fetch('/api/monthly-machines');
         
-        console.log("[DEBUG] Response status:", response.status);
-        
         if (response.ok) {
           const result = await response.json();
-          console.log("[DEBUG] Received data:", result);
           setMonthlyMachineData(result.rows || []);
         } else {
-          console.warn('[DEBUG] Monthly machine data not available');
+          // Only log in development
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('[Dashboard] Monthly machine data not available');
+          }
           setMonthlyMachineData([]);
         }
       } catch (error) {
-        console.error('[DEBUG] Error fetching monthly machine data:', error);
+        // Only log errors, not debug info
+        console.error('[Dashboard] Error fetching monthly machine data:', error);
         setMonthlyMachineData([]);
       } finally {
         setLoadingMonthly(false);
@@ -279,22 +281,24 @@ export default function Dashboard() {
    * @dependencies [engineers, category, filterValue]
    */
   const filteredEngineers = useMemo(() => {
-    if (!filterValue) return engineers;
+    // Use deferredFilterValue for heavy calculations to avoid blocking UI
+    const activeFilter = deferredFilterValue || filterValue;
+    if (!activeFilter) return engineers;
     const key = category === "REGION" ? "region" : category === "VENDOR" ? "vendor" : "area_group";
     
     if (category === "AREA GROUP") {
       // Pattern matching: "Surabaya" akan match dengan "Surabaya 1", "Surabaya 2", dll
       return engineers.filter((r) => {
         const value = r[key]?.toLowerCase().trim().replace(/\s+/g, ' ');
-        const filter = filterValue.toLowerCase().trim();
+        const filter = activeFilter.toLowerCase().trim();
         // Hapus angka di akhir untuk matching
         const valueBase = value.replace(/\s+\d+$/, '');
         return valueBase === filter;
       });
     }
     
-    return engineers.filter((r) => r[key] === filterValue);
-  }, [engineers, category, filterValue]);
+    return engineers.filter((r) => r[key] === activeFilter);
+  }, [engineers, category, deferredFilterValue, filterValue]);
   
   /**
    * filteredMachines - Machines yang sudah difilter berdasarkan category & filterValue
@@ -307,7 +311,9 @@ export default function Dashboard() {
    * @dependencies [machines, engineers, category, filterValue]
    */
   const filteredMachines = useMemo(() => {
-    if (!filterValue) return machines;
+    // Use deferredFilterValue for heavy calculations to avoid blocking UI
+    const activeFilter = deferredFilterValue || filterValue;
+    if (!activeFilter) return machines;
     if (category === "REGION") {
       // Filter berdasarkan region engineer yang terkait dengan machine
       // Atau gunakan area_group sebagai proxy untuk region jika tidak ada mapping
@@ -318,22 +324,22 @@ export default function Dashboard() {
           eng.area_group === machine.area_group || 
           eng.vendor === machine.customer
         );
-        return relatedEngineer?.region === filterValue || machine.region === filterValue;
+        return relatedEngineer?.region === activeFilter || machine.region === activeFilter;
       });
     } else if (category === "VENDOR") {
-      return machines.filter((r) => r.customer === filterValue);
+      return machines.filter((r) => r.customer === activeFilter);
     } else if (category === "AREA GROUP") {
       // Pattern matching: "Surabaya" akan match dengan "Surabaya 1", "Surabaya 2", dll
       return machines.filter((r) => {
         const value = r.area_group?.toLowerCase().trim().replace(/\s+/g, ' ');
-        const filter = filterValue.toLowerCase().trim();
+        const filter = activeFilter.toLowerCase().trim();
         // Hapus angka di akhir untuk matching
         const valueBase = value.replace(/\s+\d+$/, '');
         return valueBase === filter;
       });
     }
     return machines;
-  }, [machines, engineers, category, deferredFilterValue]);
+  }, [machines, engineers, category, deferredFilterValue, filterValue]);
   
   // ============================================================================
   // AGGREGATED DATA - REFACTORED dengan groupByField helper
@@ -1076,7 +1082,7 @@ export default function Dashboard() {
             
             {/* Quick Summary */}
             <div className="pt-2 border-t border-slate-700/50">
-              <div className="flex items-center justify-between text-xs text-slate-400">
+              <div className={`flex items-center justify-between text-xs ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>
                 <span>Coverage Rate</span>
                 <span className={cn(
                   "font-semibold",
@@ -1084,7 +1090,7 @@ export default function Dashboard() {
                 )}>{warrantyPercentage.toFixed(1)}%</span>
               </div>
               {warrantyRemaining && warrantyRemaining.avgMonths > 0 && (
-                <div className="flex items-center justify-between text-xs text-slate-400 mt-1">
+                <div className={`flex items-center justify-between text-xs ${isDark ? 'text-slate-300' : 'text-gray-700'} mt-1`}>
                   <span>Avg. Remaining</span>
                   <span className="text-blue-400 font-semibold">{warrantyRemaining.avgMonths} bulan</span>
                 </div>
@@ -1266,12 +1272,14 @@ export default function Dashboard() {
                 boxShadow: 'none',
                 border: 'none'
               }}>
-                <MapWithRegions 
-                  machines={filteredMachines} 
-                  engineers={filteredEngineers}
-                  onEngineerClick={handleEngineerClick}
-                  isFullscreen={true}
-                />
+                <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div></div>}>
+                  <MapWithRegions 
+                    machines={filteredMachines} 
+                    engineers={filteredEngineers}
+                    onEngineerClick={handleEngineerClick}
+                    isFullscreen={true}
+                  />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -1367,11 +1375,13 @@ export default function Dashboard() {
               }}
               className={isModalOpen ? 'map-container-modal-open' : ''}
             >
-              <MapWithRegions 
-                machines={filteredMachines} 
-                engineers={filteredEngineers}
-                onEngineerClick={handleEngineerClick}
-              />
+              <Suspense fallback={<div className="flex items-center justify-center h-full min-h-[400px]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div></div>}>
+                <MapWithRegions 
+                  machines={filteredMachines} 
+                  engineers={filteredEngineers}
+                  onEngineerClick={handleEngineerClick}
+                />
+              </Suspense>
             </div>
           );
         })()}
@@ -1385,7 +1395,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-3">
             <h2 className="text-lg font-semibold text-slate-100">Training Skill Progress</h2>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400">{filteredEngineers.length} engineers</span>
+              <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>{filteredEngineers.length} engineers</span>
               <button 
                 onClick={() => setFullscreenChart("training-skills")} 
                 className="text-slate-400 hover:text-blue-400 transition-colors p-2 rounded hover:bg-slate-700/50 bg-blue-600/20 hover:bg-blue-600/30"
@@ -1401,7 +1411,9 @@ export default function Dashboard() {
             <div className="flex-1 overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-800">
               {filteredEngineers.length > 0 ? (
                 filteredEngineers.map((engineer, idx) => (
-                  <SkillProgress key={idx} engineer={engineer} />
+                  <Suspense key={idx} fallback={<div className="h-20 bg-slate-800/50 rounded-lg animate-pulse" />}>
+                    <SkillProgress engineer={engineer} />
+                  </Suspense>
                 ))
               ) : (
                 <div className="flex items-center justify-center h-full text-slate-500">

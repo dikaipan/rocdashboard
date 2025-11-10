@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Sidebar from "./components/layout/Sidebar";
-import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -59,8 +58,7 @@ function AppContent() {
           <div className="app-root">
             <Sidebar />
             <div className="main-area">
-              <Header />
-              <main className="content-area" style={{ marginTop: '2px' }}>
+              <main className="content-area">
                 <ErrorBoundary>
                   <Suspense fallback={<LoadingSkeleton />}>
                     <Routes>

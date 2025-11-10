@@ -1,6 +1,8 @@
 // src/components/FilterTabs.jsx
 // Komponen tab filter sesuai mockup (Region, Vendor, Area Group)
-export default function FilterTabs({ category, setCategory }) {
+import React from 'react';
+
+const FilterTabs = React.memo(function FilterTabs({ category, setCategory }) {
   const tabs = [
     { 
       name: "REGION", 
@@ -34,4 +36,6 @@ export default function FilterTabs({ category, setCategory }) {
       ))}
     </div>
   );
-}
+});
+
+export default FilterTabs;

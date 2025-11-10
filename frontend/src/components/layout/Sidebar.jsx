@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { NavLink } from 'react-router-dom';
-import { BarChart, Cpu, Users, TrendingUp, Info, Package, GitBranch, Tool, Menu, X } from "react-feather";
+import { BarChart, Cpu, Users, TrendingUp, Info, Package, GitBranch, Tool, Menu, X, LogOut, User as UserIcon } from "react-feather";
 import ThemeToggle from "../common/ThemeToggle";
 import { useTheme } from "../../contexts/ThemeContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Sidebar = () => {
   const { isDark } = useTheme();
+  const { user, logout } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -135,9 +137,9 @@ const Sidebar = () => {
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 animate-pulse" />
                           )}
                           
-                          <div className="relative z-10 flex items-center gap-3 flex-1">
+                          <div className="relative z-10 flex items-center gap-2.5 flex-1">
                             <Icon 
-                              size={20} 
+                              size={18} 
                               className={`${
                                 isActive 
                                   ? 'text-white' 
@@ -147,7 +149,7 @@ const Sidebar = () => {
                               } transition-colors`}
                             />
                             {!isCollapsed && (
-                              <span className={`font-medium ${
+                              <span className={`text-sm font-medium ${
                                 isActive 
                                   ? 'text-white' 
                                   : isDark 
@@ -172,8 +174,37 @@ const Sidebar = () => {
                 })}
               </nav>
               
-              <div className="sidebar-theme-toggle">
-                <ThemeToggle className="w-full" />
+              <div className="sidebar-footer">
+                <ThemeToggle className="w-full mb-2" />
+                
+                {/* User Info & Logout */}
+                <div className={`
+                  flex items-center gap-1.5 px-2 py-1.5 rounded-md border
+                  ${isDark 
+                    ? 'bg-slate-800 border-slate-700' 
+                    : 'bg-gray-50 border-gray-200'
+                  }
+                `}>
+                  <UserIcon size={14} className={isDark ? 'text-slate-400' : 'text-gray-600'} />
+                  <span className={`text-xs font-medium flex-1 truncate ${
+                    isDark ? 'text-slate-300' : 'text-gray-700'
+                  }`}>
+                    {user?.name || 'User'}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className={`
+                      p-1 rounded transition-colors flex-shrink-0
+                      ${isDark 
+                        ? 'hover:bg-red-500/20 text-red-400' 
+                        : 'hover:bg-red-50 text-red-600'
+                      }
+                    `}
+                    title="Logout"
+                  >
+                    <LogOut size={14} />
+                  </button>
+                </div>
               </div>
             </aside>
           </>
@@ -237,10 +268,10 @@ const Sidebar = () => {
               className={({ isActive }) => `nav-btn ${isActive ? "active" : ""}`}
               title={item.label}
             >
-              <span className="icon"><Icon size={20} strokeWidth={2}/></span>
+              <span className="icon"><Icon size={18} strokeWidth={2}/></span>
               {!isCollapsed && (
                 <span className="flex items-center gap-2">
-                  <span>{item.label}</span>
+                  <span className="text-sm">{item.label}</span>
                   {item.badge && (
                     <span className="nav-badge">
                       {item.badge}
@@ -255,6 +286,54 @@ const Sidebar = () => {
       
       <div className="sidebar-footer">
         <ThemeToggle />
+        
+        {/* User Info & Logout */}
+        {!isCollapsed && (
+          <div className={`
+            flex items-center gap-1.5 px-2 py-1.5 rounded-md border
+            ${isDark 
+              ? 'bg-slate-800 border-slate-700' 
+              : 'bg-gray-50 border-gray-200'
+            }
+          `}>
+            <UserIcon size={14} className={isDark ? 'text-slate-400' : 'text-gray-600'} />
+            <span className={`text-xs font-medium flex-1 truncate ${
+              isDark ? 'text-slate-300' : 'text-gray-700'
+            }`}>
+              {user?.name || 'User'}
+            </span>
+            <button
+              onClick={logout}
+              className={`
+                p-1 rounded transition-colors flex-shrink-0
+                ${isDark 
+                  ? 'hover:bg-red-500/20 text-red-400' 
+                  : 'hover:bg-red-50 text-red-600'
+                }
+              `}
+              title="Logout"
+            >
+              <LogOut size={14} />
+            </button>
+          </div>
+        )}
+        
+        {/* Collapsed: Only logout button */}
+        {isCollapsed && (
+          <button
+            onClick={logout}
+            className={`
+              w-full p-1.5 rounded-md transition-colors flex-shrink-0
+              ${isDark 
+                ? 'hover:bg-red-500/20 text-red-400' 
+                : 'hover:bg-red-50 text-red-600'
+              }
+            `}
+            title="Logout"
+          >
+            <LogOut size={16} className="mx-auto" />
+          </button>
+        )}
       </div>
     </aside>
   );

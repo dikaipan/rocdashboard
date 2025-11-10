@@ -29,9 +29,9 @@ export default function ThemeToggle({ className = '' }) {
       }}
     >
       {isDark ? (
-        <Sun size={18} className="text-yellow-400" />
+        <Sun size={16} className="text-yellow-400" />
       ) : (
-        <Moon size={18} className="text-gray-600" />
+        <Moon size={16} className="text-gray-600" />
       )}
     </div>
   );

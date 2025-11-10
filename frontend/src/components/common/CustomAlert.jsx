@@ -28,23 +28,23 @@ const CustomAlert = ({
 
   if (!isOpen) return null;
 
-  // Theme-aware styling
+  // Theme-aware styling with improved contrast
   const themeStyles = {
     dark: {
-      overlay: 'bg-black/60',
-      cardBg: 'bg-slate-800/95',
-      text: 'text-slate-200',
-      textMuted: 'text-slate-400',
-      closeButton: 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50',
-      cancelButton: 'bg-slate-700 hover:bg-slate-600 text-slate-200'
+      overlay: 'bg-black/70',
+      cardBg: 'bg-slate-800',
+      text: 'text-slate-100',
+      textMuted: 'text-slate-300',
+      closeButton: 'text-slate-300 hover:text-slate-100 hover:bg-slate-700/70',
+      cancelButton: 'bg-slate-700 hover:bg-slate-600 text-slate-100'
     },
     light: {
-      overlay: 'bg-black/40',
-      cardBg: 'bg-white/95',
+      overlay: 'bg-black/50',
+      cardBg: 'bg-white',
       text: 'text-gray-900',
-      textMuted: 'text-gray-600',
-      closeButton: 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/50',
-      cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+      textMuted: 'text-gray-700',
+      closeButton: 'text-gray-500 hover:text-gray-800 hover:bg-gray-200',
+      cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-900'
     }
   };
 
@@ -58,7 +58,7 @@ const CustomAlert = ({
       borderColor: isDark ? 'border-green-500/50' : 'border-green-300',
       bgGradient: isDark ? 'from-green-500/10 to-emerald-500/5' : 'from-green-50 to-emerald-50',
       titleColor: isDark ? 'text-green-300' : 'text-green-700',
-      messageColor: theme.textMuted,
+      messageColor: isDark ? 'text-slate-200' : 'text-gray-800',
       buttonColor: 'bg-green-600 hover:bg-green-700 text-white'
     },
     error: {
@@ -68,7 +68,7 @@ const CustomAlert = ({
       borderColor: isDark ? 'border-red-500/50' : 'border-red-300',
       bgGradient: isDark ? 'from-red-500/10 to-rose-500/5' : 'from-red-50 to-rose-50',
       titleColor: isDark ? 'text-red-300' : 'text-red-700',
-      messageColor: theme.textMuted,
+      messageColor: isDark ? 'text-slate-200' : 'text-gray-800',
       buttonColor: 'bg-red-600 hover:bg-red-700 text-white'
     },
     warning: {
@@ -78,7 +78,7 @@ const CustomAlert = ({
       borderColor: isDark ? 'border-yellow-500/50' : 'border-yellow-300',
       bgGradient: isDark ? 'from-yellow-500/10 to-amber-500/5' : 'from-yellow-50 to-amber-50',
       titleColor: isDark ? 'text-yellow-300' : 'text-yellow-700',
-      messageColor: theme.textMuted,
+      messageColor: isDark ? 'text-slate-200' : 'text-gray-800',
       buttonColor: 'bg-yellow-600 hover:bg-yellow-700 text-white'
     },
     info: {
@@ -88,7 +88,7 @@ const CustomAlert = ({
       borderColor: isDark ? 'border-blue-500/50' : 'border-blue-300',
       bgGradient: isDark ? 'from-blue-500/10 to-cyan-500/5' : 'from-blue-50 to-cyan-50',
       titleColor: isDark ? 'text-blue-300' : 'text-blue-700',
-      messageColor: theme.textMuted,
+      messageColor: isDark ? 'text-slate-200' : 'text-gray-800',
       buttonColor: 'bg-blue-600 hover:bg-blue-700 text-white'
     }
   };

@@ -1,8 +1,10 @@
 import React from "react";
 import { Info, Target, Users, Cpu, TrendingUp, Code, Database, Layers } from "react-feather";
 import { getGradientCard, TEXT_STYLES, cn } from '../constants/styles';
+import { useTheme } from '../contexts/ThemeContext';
 
 export default function About() {
+  const { isDark } = useTheme();
   const features = [
     {
       icon: Users,
@@ -45,8 +47,8 @@ export default function About() {
           </div>
           <div className="flex-1">
             <h1 className={TEXT_STYLES.heading1}>ROC Dashboard</h1>
-            <p className={cn('text-slate-300 text-lg mb-4')}>Engineering & Machine Management System</p>
-            <p className={TEXT_STYLES.body}>
+            <p className={cn('text-lg mb-4', isDark ? 'text-slate-300' : 'text-gray-700')}>Engineering & Machine Management System</p>
+            <p className={cn(isDark ? 'text-slate-300' : 'text-gray-700')}>
               Dashboard management system untuk memantau dan mengelola data engineer serta mesin customer. 
               Dilengkapi dengan analisis mendalam dan decision support untuk optimasi operasional.
             </p>
@@ -74,7 +76,7 @@ export default function About() {
                   </div>
                   <h3 className="text-lg font-semibold text-slate-100">{feature.title}</h3>
                 </div>
-                <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                <p className={cn('text-sm leading-relaxed', isDark ? 'text-slate-300' : 'text-gray-700')}>{feature.description}</p>
               </div>
             );
           })}
@@ -101,7 +103,7 @@ export default function About() {
               </div>
               <ul className="space-y-2">
                 {tech.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-slate-300 text-sm">
+                  <li key={i} className={`flex items-center gap-2 text-sm ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
                     {item}
                   </li>
@@ -137,11 +139,11 @@ export default function About() {
       </div>
 
       {/* Version & Credits */}
-      <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 text-center">
-        <p className="text-slate-300 mb-2">
-          <span className="font-semibold text-slate-100">ROC Dashboard</span> v1.0
+      <div className={`${isDark ? 'bg-slate-800/50' : 'bg-gray-100'} backdrop-blur-sm p-6 rounded-xl border ${isDark ? 'border-slate-700' : 'border-gray-300'} text-center`}>
+        <p className={`${isDark ? 'text-slate-300' : 'text-gray-700'} mb-2`}>
+          <span className={`font-semibold ${isDark ? 'text-slate-100' : 'text-gray-900'}`}>ROC Dashboard</span> v1.0
         </p>
-        <p className="text-sm text-slate-500">
+        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
           Built with ❤️ for engineering & operations management
         </p>
       </div>
