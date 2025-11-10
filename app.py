@@ -60,13 +60,43 @@ def create_app() -> Flask:
         
         # If requesting a file that exists (JS, CSS, images, etc.), serve it
         if path != "":
-            file_path = os.path.join(Config.DIST_DIR, path)
+            # Normalize path - remove leading slash if present
+            normalized_path = path.lstrip('/')
+            file_path = os.path.join(Config.DIST_DIR, normalized_path)
+            
+            # Debug logging (only in debug mode)
+            if Config.DEBUG:
+                print(f"[DEBUG] Requested path: {path}")
+                print(f"[DEBUG] Normalized path: {normalized_path}")
+                print(f"[DEBUG] File path: {file_path}")
+                print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
+            
             if os.path.exists(file_path) and os.path.isfile(file_path):
-                # Get the correct MIME type for the file
-                mimetype = mimetypes.guess_type(file_path)[0]
-                response = send_from_directory(Config.DIST_DIR, path, mimetype=mimetype)
+                # Explicitly set MIME type based on file extension
+                if file_path.endswith('.js'):
+                    mimetype = 'application/javascript'
+                elif file_path.endswith('.mjs'):
+                    mimetype = 'application/javascript'
+                elif file_path.endswith('.css'):
+                    mimetype = 'text/css'
+                elif file_path.endswith('.json'):
+                    mimetype = 'application/json'
+                elif file_path.endswith('.png'):
+                    mimetype = 'image/png'
+                elif file_path.endswith('.jpg') or file_path.endswith('.jpeg'):
+                    mimetype = 'image/jpeg'
+                elif file_path.endswith('.svg'):
+                    mimetype = 'image/svg+xml'
+                else:
+                    # Fallback to mimetypes.guess_type
+                    mimetype = mimetypes.guess_type(file_path)[0] or 'application/octet-stream'
+                
+                if Config.DEBUG:
+                    print(f"[DEBUG] MIME type: {mimetype}")
+                
+                response = send_from_directory(Config.DIST_DIR, normalized_path, mimetype=mimetype)
                 # Cache static assets for 1 year (they have hash-based names, so safe to cache)
-                if path.startswith('assets/'):
+                if normalized_path.startswith('assets/'):
                     response.cache_control.max_age = 31536000  # 1 year
                     response.cache_control.public = True
                 return response
