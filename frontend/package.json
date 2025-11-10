@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "clean": "node scripts/clean-dist.js",
+    "clean:install": "node scripts/clean-install.js",
     "prebuild": "node scripts/clean-dist.js",
     "build": "cross-env NODE_ENV=production vite build",
     "build:rolldown": "vite build",
