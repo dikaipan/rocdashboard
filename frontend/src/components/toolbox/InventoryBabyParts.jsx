@@ -75,17 +75,9 @@ const InventoryBabyParts = () => {
           const isBackendUnavailable = text.includes('<!doctype html>') || text.includes('<html') || response.status === 404;
           
           if (isBackendUnavailable) {
-            // Only show error in development mode
-            // In production, silently handle missing backend (backend might not be deployed yet)
-            if (import.meta.env.DEV) {
-              toast.error('Backend tidak tersedia. Pastikan Flask server berjalan di http://localhost:5000', {
-                duration: 5000,
-                icon: '⚠️'
-              });
-            } else {
-              // In production, just log and show empty state
-              console.info('[InventoryBabyParts] Backend not available in production. Baby parts feature requires backend API.');
-            }
+            // Silently handle missing backend - no error toast
+            // Backend might not be deployed in production, which is expected
+            console.info('[InventoryBabyParts] Backend not available. Baby parts feature requires backend API.');
           }
           
           if (isMountedRef.current) {
@@ -127,22 +119,13 @@ const InventoryBabyParts = () => {
           const errorData = await response.json().catch(() => ({}));
           console.error('[InventoryBabyParts] Error response:', response.status, errorData);
           
-          // Only show error for non-404 errors (404 means backend endpoint doesn't exist)
-          if (response.status !== 404) {
-            // Show user-friendly error message only in development
-            if (import.meta.env.DEV) {
-              toast.error(`Error loading baby parts: ${errorData.error || response.statusText}`, {
-                duration: 5000,
-                icon: '❌'
-              });
-            }
+          // Handle errors silently - don't show toast for backend unavailable
+          // 404 means backend endpoint doesn't exist (backend not deployed)
+          if (response.status === 404) {
+            console.info('[InventoryBabyParts] Backend endpoint not found (404). Backend might not be deployed.');
           } else {
-            // 404 means backend not available
-            if (import.meta.env.DEV) {
-              console.warn('[InventoryBabyParts] Backend endpoint not found (404). Make sure Flask server is running.');
-            } else {
-              console.info('[InventoryBabyParts] Backend not available in production.');
-            }
+            // For other errors, only log (no toast to avoid annoying users)
+            console.error('[InventoryBabyParts] Error loading baby parts:', errorData.error || response.statusText);
           }
           
           if (isMountedRef.current) setBabyParts([]);
@@ -155,16 +138,9 @@ const InventoryBabyParts = () => {
         console.error('[InventoryBabyParts] Error fetching baby parts:', error);
         console.error('[InventoryBabyParts] Error details:', error.message, error.stack);
         
-        // Only show error in development mode
-        // In production, network errors might occur if backend is not deployed
-        if (import.meta.env.DEV) {
-          toast.error(`Gagal memuat data baby parts: ${error.message}`, {
-            duration: 5000,
-            icon: '❌'
-          });
-        } else {
-          console.info('[InventoryBabyParts] Failed to fetch baby parts. Backend might not be available in production.');
-        }
+        // Silently handle network errors - no error toast
+        // Backend might not be deployed, which is expected in some environments
+        console.info('[InventoryBabyParts] Failed to fetch baby parts:', error.message);
         
         if (isMountedRef.current) setBabyParts([]);
       } finally {
