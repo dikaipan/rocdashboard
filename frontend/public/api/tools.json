@@ -1,2 +1,272 @@
-[]
-
+[
+  {
+    "part_name": "Screw Driver (+)# 6300 2 x 100 Vessel",
+    "detail_specification": "Screw Driver (+)# 6300 2 x 100 Vessel",
+    "picture": "",
+    "total": 23,
+    "new": 23,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Screw Driver (+)# 6300 1 x 75 Vessel",
+    "detail_specification": "Screw Driver (+)# 6300 1 x 75 Vessel",
+    "picture": "",
+    "total": 31,
+    "new": 23,
+    "old": 9,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Screw Driver (+)# 6900 0 x 75 Vessel",
+    "detail_specification": "Screw Driver (+)# 6900 0 x 75 Vessel",
+    "picture": "",
+    "total": 30,
+    "new": 13,
+    "old": 17,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Stubby Driver (+/-)# 2 Vessel",
+    "detail_specification": "Stubby Driver (+/-)# 2 Vessel",
+    "picture": "",
+    "total": 25,
+    "new": 13,
+    "old": 12,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Screw Driver (-)# 6300 5.5 x 75 Vessel",
+    "detail_specification": "Screw Driver (-)# 6300 5.5 x 75 Vessel",
+    "picture": "",
+    "total": 27,
+    "new": 0,
+    "old": 27,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Allen Key Set TEKIRO (W-HK08SMS 8PCS Allen Wrench Key Short 2-10MM Set)",
+    "detail_specification": "Allen Key Set TEKIRO (W-HK08SMS 8PCS Allen Wrench Key Short 2-10MM Set)",
+    "picture": "",
+    "total": 27,
+    "new": 8,
+    "old": 19,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Long Nose Pliers GOOT YP-3",
+    "detail_specification": "Long Nose Pliers GOOT YP-3",
+    "picture": "",
+    "total": 22,
+    "new": 3,
+    "old": 19,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Nippers Goot YN-3",
+    "detail_specification": "Nippers Goot YN-3",
+    "picture": "",
+    "total": 10,
+    "new": 4,
+    "old": 6,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Hand Blower (Cleaning kit Canon)",
+    "detail_specification": "Hand Blower (Cleaning kit Canon)",
+    "picture": "",
+    "total": 10,
+    "new": 5,
+    "old": 5,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Multi Meter Sanwa CD-800",
+    "detail_specification": "Multi Meter Sanwa CD-800",
+    "picture": "",
+    "total": 37,
+    "new": 22,
+    "old": 15,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Screw Driver (+)#2 6300 2 x 250 Vessel",
+    "detail_specification": "Screw Driver (+)#2 6300 2 x 250 Vessel",
+    "picture": "",
+    "total": 22,
+    "new": 13,
+    "old": 9,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Tweezers GOOT",
+    "detail_specification": "Tweezers GOOT",
+    "picture": "",
+    "total": 15,
+    "new": 10,
+    "old": 5,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Mini Keyboard M-TECH MTK-02",
+    "detail_specification": "Keyboard M-TECH MTK-08",
+    "picture": "",
+    "total": 21,
+    "new": 21,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Small Blower Merk Bestway 62139 electric Pump",
+    "detail_specification": "Small Blower Merk Bestway 62139 electric Pump",
+    "picture": "",
+    "total": 10,
+    "new": 10,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Electric Blower Merk Nankai",
+    "detail_specification": "Voltage :220 v ",
+    "picture": "",
+    "total": 20,
+    "new": 20,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Tool Bag",
+    "detail_specification": "Tool Bag Consina Capertee 35L Dark",
+    "picture": "",
+    "total": 10,
+    "new": 10,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "PaintBrush",
+    "detail_specification": "PaintBrush",
+    "picture": "",
+    "total": 12,
+    "new": 7,
+    "old": 5,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "CottonSwab (Box)",
+    "detail_specification": "CottonSwab (Box)",
+    "picture": "",
+    "total": 20,
+    "new": 20,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "CleanCloth (Kg)",
+    "detail_specification": "CleanCloth (Kg)",
+    "picture": "",
+    "total": 5,
+    "new": 5,
+    "old": 0,
+    "uom": "Kg",
+    "remark": ""
+  },
+  {
+    "part_name": "CD-R",
+    "detail_specification": "CD-R VERBATIM",
+    "picture": "",
+    "total": 8,
+    "new": 8,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "USB Flash Drive 256 GB(Scandisk Ultra Flair USB 3.0 Flash Drive - SDCZ73 128GB)",
+    "detail_specification": "USB Flash Drive 256 GB(Scandisk Ultra Flair USB 3.0 Flash Drive - SDCZ73 128GB)",
+    "picture": "",
+    "total": 14,
+    "new": 14,
+    "old": 0,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Scan Disk Ultra USB OTG Type-C Dual Drive Go Flashdrive 32GB",
+    "detail_specification": "Scan Disk Ultra USB OTG Type-C Dual Drive Go Flashdrive 32GB",
+    "picture": "",
+    "total": 11,
+    "new": 10,
+    "old": 1,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Tool Box Krisbow KW-0103938",
+    "detail_specification": "Tool Box Krisbow KW-0103938",
+    "picture": "",
+    "total": 7,
+    "new": 0,
+    "old": 7,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Screw Box Krisbow Section Case S120 N 218691",
+    "detail_specification": "Screw Box Krisbow Section Case S120 N 218691",
+    "picture": "",
+    "total": 12,
+    "new": 10,
+    "old": 2,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Spring Hook",
+    "detail_specification": "Spring Hook",
+    "picture": "",
+    "total": 30,
+    "new": 17,
+    "old": 13,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Tension Belt",
+    "detail_specification": "Tension Belt Kanon TK300cN",
+    "picture": "",
+    "total": 29,
+    "new": 28,
+    "old": 1,
+    "uom": "Pcs",
+    "remark": ""
+  },
+  {
+    "part_name": "Thermogun Infrared",
+    "detail_specification": "Infrared Thermometer Benetech",
+    "picture": "",
+    "total": 20,
+    "new": 19,
+    "old": 1,
+    "uom": "Pcs",
+    "remark": ""
+  }
+]
