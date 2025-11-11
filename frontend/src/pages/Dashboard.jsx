@@ -19,7 +19,7 @@ import { parseInstallYear, calculateMachineAge, categorizeByRange, groupByField,
 import { limitChartData } from "../utils/chartOptimization.js";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import LoadingSkeleton from "../components/common/LoadingSkeleton.jsx";
-import { getGradientCard, getKPICard, TEXT_STYLES, BUTTON_STYLES, cn } from "../constants/styles";
+import { getGradientCard, getKPICard, TEXT_STYLES, cn } from "../constants/styles";
 import { X, Search, ChevronLeft, ChevronRight, Download } from "react-feather";
 import { useMachineFilters } from "../hooks/useMachineFilters.js";
 import { exportMachinesToCSV } from "../utils/machineUtils.js";
@@ -262,114 +262,6 @@ export default function Dashboard() {
     
     fetchMonthlyData();
   }, []);
-  
-  // ============================================================================
-  // HELPER FUNCTIONS - Pure functions untuk data processing
-  // ============================================================================
-  
-  /**
-   * parseInstallYear - Extract tahun instalasi dari machine data
-   * 
-   * Fungsi pure untuk parsing tahun dari 2 possible sources:
-   * 1. instal_date string (format: "DD-MM-YYYY" atau "DD-MM-YY")
-   * 2. year field (number atau string)
-   * 
-   * @param {Object} machine - Machine object
-   * @returns {string|null} Year sebagai string ("2021") atau null
-   */
-  const parseInstallYear = (machine) => {
-    let installYear;
-    
-    // Try parse dari instal_date
-    if (machine.instal_date) {
-      const dateStr = machine.instal_date;
-      if (dateStr.includes('-')) {
-        const parts = dateStr.split('-');
-        const yearPart = parts[parts.length - 1];
-        // Convert 2-digit year ke 4-digit
-        installYear = yearPart.length === 2 ? '20' + yearPart : yearPart;
-      }
-    } 
-    // Fallback ke field year
-    else if (machine.year) {
-      installYear = machine.year.toString();
-    }
-    
-    return installYear || null;
-  };
-  
-  /**
-   * calculateMachineAge - Hitung usia mesin dalam tahun
-   * 
-   * @param {Object} machine - Machine object
-   * @param {number} currentYear - Tahun sekarang
-   * @returns {number|null} Age dalam tahun atau null jika tidak bisa dihitung
-   */
-  const calculateMachineAge = (machine, currentYear) => {
-    const installYearStr = parseInstallYear(machine);
-    
-    if (!installYearStr) return null;
-    
-    const installYear = parseInt(installYearStr);
-    
-    if (isNaN(installYear)) return null;
-    
-    return currentYear - installYear;
-  };
-  
-  /**
-   * categorizeByRange - Kategorikan nilai numerik ke dalam rentang/bucket
-   * 
-   * @param {number} value - Nilai yang akan dikategorikan
-   * @param {Array} ranges - Array of {max: number, label: string}
-   * @param {string} defaultLabel - Label untuk nilai di luar semua range
-   * @returns {string} Category label
-   */
-  const categorizeByRange = (value, ranges, defaultLabel) => {
-    for (const range of ranges) {
-      if (value <= range.max) {
-        return range.label;
-      }
-    }
-    return defaultLabel;
-  };
-  
-  /**
-   * groupByField - Aggregate data by field name
-   * 
-   * Generic aggregation function yang menghitung count per unique value
-   * dari field tertentu.
-   * 
-   * @param {Array} data - Array of objects
-   * @param {string} fieldName - Field name untuk grouping
-   * @param {string} defaultValue - Default value jika field null/undefined
-   * @returns {Object} Object dengan key=field value, value=count
-   */
-  const groupByField = (data, fieldName, defaultValue = 'Unknown') => {
-    const counts = {};
-    
-    data.forEach(item => {
-      const value = item[fieldName] || defaultValue;
-      counts[value] = (counts[value] || 0) + 1;
-    });
-    
-    return counts;
-  };
-  
-  /**
-   * objectToChartData - Convert object ke array format untuk recharts
-   * 
-   * @param {Object} dataObject - Object dengan key-value pairs
-   * @param {string} keyName - Nama property untuk key (default: 'name')
-   * @param {string} valueName - Nama property untuk value (default: 'value')
-   * @returns {Array} Array of objects untuk recharts
-   */
-  const objectToChartData = (dataObject, keyName = 'name', valueName = 'value') => {
-    return Object.entries(dataObject).map(([key, value]) => ({
-      [keyName]: key,
-      [valueName]: value
-    }));
-  };
   
   // ============================================================================
   // FILTER OPTIONS - Generate dropdown options berdasarkan category

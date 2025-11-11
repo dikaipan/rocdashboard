@@ -99,13 +99,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            // Conservative chunking strategy to avoid React dependency issues:
-            // 1. Split data files (safe, no React dependency)
-            // 2. Split Leaflet core ONLY (safe, no React dependency - but react-leaflet needs React)
-            // 3. EVERYTHING ELSE goes to vendor-react to ensure React is always available
-            // 
-            // This is safer than trying to guess which packages need React.
-            // Some packages may have hidden React dependencies or peer dependencies.
+            // Vite automatically excludes test files and unused imports through tree-shaking
+            // This function only controls how chunks are split, not what's included
             
             if (id.includes('node_modules')) {
               // Large data files (definitely safe to split - no dependencies)

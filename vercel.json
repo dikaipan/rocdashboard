@@ -61,7 +61,7 @@
       "destination": "/api/monthly-machines.json"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]

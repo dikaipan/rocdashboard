@@ -110,6 +110,8 @@ target/
 htmlcov/
 .coverage
 .coverage.*
+frontend/coverage/
+frontend/htmlcov/
 
 # mypy
 .mypy_cache/
