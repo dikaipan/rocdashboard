@@ -47,6 +47,7 @@ export default function Machines() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(50);
   const [uploadingCSV, setUploadingCSV] = useState(false);
+  const [uploadingSO, setUploadingSO] = useState(false);
   const [showWarrantyInsightModal, setShowWarrantyInsightModal] = useState(false);
   const [showExpiringSoonModal, setShowExpiringSoonModal] = useState(false);
   const [showMachineTypesModal, setShowMachineTypesModal] = useState(false);
@@ -790,6 +791,60 @@ export default function Machines() {
       alert.error(`Failed to upload CSV: ${error.message}`);
     } finally {
       setUploadingCSV(false);
+    }
+  };
+
+  const handleUploadSOCSV = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.csv')) {
+      alert.warning('Silakan upload file CSV SO');
+      return;
+    }
+
+    setUploadingSO(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('target', 'so');
+
+      const response = await fetch(`${API_BASE_URL}/upload`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        let errorMessage = 'Failed to upload SO CSV';
+        try {
+          const contentType = response.headers.get('Content-Type') || '';
+          if (contentType.includes('application/json')) {
+            const errorData = await response.json();
+            if (errorData && (errorData.error || errorData.message)) {
+              errorMessage = errorData.error || errorData.message;
+            }
+          }
+        } catch (e) {
+          // Ignore JSON parse errors and fall back to generic message
+        }
+
+        if (response.status) {
+          errorMessage = `${errorMessage} (status ${response.status})`;
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      alert.success('SO CSV uploaded successfully!', 'Upload SO Berhasil');
+      // Trigger SO data refresh (activation & engineer performance KPIs)
+      window.dispatchEvent(new Event('soDataChanged'));
+      event.target.value = '';
+    } catch (error) {
+      console.error('Error uploading SO CSV:', error);
+      alert.error(`Failed to upload SO CSV: ${error.message}`);
+    } finally {
+      setUploadingSO(false);
     }
   };
 
@@ -1588,13 +1643,23 @@ export default function Machines() {
                     )}
                   </button>
                   <label className="px-2 sm:px-3 py-1 sm:py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-medium transition-colors flex items-center gap-1 sm:gap-1.5 cursor-pointer">
-                    <Upload size={12} className="sm:w-3.5 sm:h-3.5" /> <span className="hidden sm:inline">{uploadingCSV ? 'Uploading...' : 'Upload CSV'}</span>
+                    <Upload size={12} className="sm:w-3.5 sm:h-3.5" /> <span className="hidden sm:inline">{uploadingCSV ? 'Uploading...' : 'Upload CSV Mesin'}</span>
                     <input
                       type="file"
                       accept=".csv"
                       onChange={handleUploadCSV}
                       className="hidden"
                       disabled={uploadingCSV}
+                    />
+                  </label>
+                  <label className="px-2 sm:px-3 py-1 sm:py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-medium transition-colors flex items-center gap-1 sm:gap-1.5 cursor-pointer">
+                    <Upload size={12} className="sm:w-3.5 sm:h-3.5" /> <span className="hidden sm:inline">{uploadingSO ? 'Uploading SO...' : 'Upload SO CSV'}</span>
+                    <input
+                      type="file"
+                      accept=".csv"
+                      onChange={handleUploadSOCSV}
+                      className="hidden"
+                      disabled={uploadingSO}
                     />
                   </label>
                   <button

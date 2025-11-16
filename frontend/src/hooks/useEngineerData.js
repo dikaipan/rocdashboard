@@ -176,7 +176,9 @@ export function useSOData(months = null) {
     ? `/so-data?months=${encodeURIComponent(monthsParam)}`
     : '/so-data';
   
-  const { data, loading, error } = useDataFetch(endpoint);
+  const { data, loading, error } = useDataFetch(endpoint, {
+    eventName: 'soDataChanged',
+  });
 
   return { 
     data, 
@@ -197,7 +199,10 @@ export function useRawSOData(months = null) {
     : '/so-data/raw';
   
   // Untuk raw SO data, matikan cache agar selalu pakai data terbaru
-  const { data, loading, error } = useDataFetch(endpoint, { useCache: false });
+  const { data, loading, error } = useDataFetch(endpoint, { 
+    useCache: false,
+    eventName: 'soDataChanged',
+  });
 
   return { 
     data, 
@@ -214,7 +219,10 @@ export function useRawSOData(months = null) {
 export function useCustomerIntelligenceData() {
   const endpoint = '/so-data/customer-intelligence';
   
-  const { data, loading, error } = useDataFetch(endpoint, { useCache: false });
+  const { data, loading, error } = useDataFetch(endpoint, { 
+    useCache: false,
+    eventName: 'soDataChanged',
+  });
 
   return { 
     data, 
@@ -231,7 +239,10 @@ export function useCustomerIntelligenceData() {
 export function useEngineerCustomerRelationships() {
   const endpoint = '/so-data/engineer-customer-relationships';
   
-  const { data, loading, error } = useDataFetch(endpoint, { useCache: false });
+  const { data, loading, error } = useDataFetch(endpoint, { 
+    useCache: false,
+    eventName: 'soDataChanged',
+  });
 
   return { 
     data, 
