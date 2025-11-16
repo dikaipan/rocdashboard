@@ -36,11 +36,25 @@ export function useCrud(config) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create item');
+        let errorData = null;
+        try {
+          errorData = await response.json();
+        } catch {
+          // Backend might return empty or non-JSON body on error
+        }
+        throw new Error(
+          (errorData && (errorData.error || errorData.message)) ||
+          `Failed to create item (status ${response.status})`
+        );
       }
 
-      const result = await response.json();
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        // Backend might return 201/204 with empty body - treat as success without payload
+        result = null;
+      }
 
       // Dispatch custom event to refresh data
       if (eventName) {
@@ -76,11 +90,25 @@ export function useCrud(config) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to update item');
+        let errorData = null;
+        try {
+          errorData = await response.json();
+        } catch {
+          // Backend might return empty or non-JSON body on error
+        }
+        throw new Error(
+          (errorData && (errorData.error || errorData.message)) ||
+          `Failed to update item (status ${response.status})`
+        );
       }
 
-      const result = await response.json();
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        // Backend might return 200/204 with empty body - treat as success without payload
+        result = null;
+      }
 
       // Dispatch custom event to refresh data only if there were actual changes
       // Skip refresh if no_changes flag is set (no changes detected on backend)
@@ -116,11 +144,25 @@ export function useCrud(config) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to delete item');
+        let errorData = null;
+        try {
+          errorData = await response.json();
+        } catch {
+          // Backend might return empty or non-JSON body on error
+        }
+        throw new Error(
+          (errorData && (errorData.error || errorData.message)) ||
+          `Failed to delete item (status ${response.status})`
+        );
       }
 
-      const result = await response.json();
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        // Backend might return 200/204 with empty body - treat as success without payload
+        result = null;
+      }
 
       // Dispatch custom event to refresh data
       if (eventName) {
@@ -153,11 +195,25 @@ export function useCrud(config) {
             headers: {
               'Content-Type': 'application/json',
             },
-          }).then(res => {
+          }).then(async (res) => {
             if (!res.ok) {
-              throw new Error(`Failed to delete item ${id}`);
+              let errorData = null;
+              try {
+                errorData = await res.json();
+              } catch {
+                // Ignore JSON parse errors on bulk delete
+              }
+              const message =
+                (errorData && (errorData.error || errorData.message)) ||
+                `Failed to delete item ${id} (status ${res.status})`;
+              throw new Error(message);
             }
-            return res.json();
+            try {
+              return await res.json();
+            } catch {
+              // Treat empty body as success
+              return null;
+            }
           });
         })
       );

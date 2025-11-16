@@ -7,6 +7,7 @@ import { useEngineerKPIs } from "../hooks/useEngineerKPIs.js";
 import { useEngineerHandlers } from "../hooks/useEngineerHandlers.js";
 import { useEngineerExport } from "../hooks/useExport.js";
 import toast from 'react-hot-toast';
+import { API_BASE_URL } from "../utils/apiConfig.js";
 import { Search, Maximize, Minimize, Edit, Trash2, X, Upload, Download, ChevronDown, ChevronRight, ChevronLeft, Hash, Home, User, MapPin, Calendar, Settings, AlertCircle, Info, Award, Briefcase } from "react-feather";
 import { parseExperience } from "../utils/textUtils.js";
 import PageLayout from "../components/layout/PageLayout.jsx";
@@ -25,7 +26,7 @@ export default function Engineers() {
   const selectedEngineer = location.state?.selectedEngineer;
   const { rows: engineers, loading } = useEngineerData();
   const { create, update, remove, bulkDelete, loading: crudLoading } = useCrud({
-    endpoint: '/api/engineers',
+    endpoint: `${API_BASE_URL}/engineers`,
     primaryKey: 'id',
     eventName: 'engineerDataChanged'
   });
