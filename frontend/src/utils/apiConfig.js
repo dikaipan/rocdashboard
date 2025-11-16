@@ -5,15 +5,12 @@
  * Usage:
  * - Development: Uses Vite proxy to /api (proxied to http://localhost:5000)
  * - Production: Uses VITE_API_BASE_URL environment variable if set,
- *   otherwise uses relative path /api (assumes backend on same domain)
+ *   otherwise falls back to hardcoded Railway backend URL
  * 
- * To configure production API URL in Vercel:
- * 1. Go to Vercel project settings → Environment Variables
- * 2. Add: VITE_API_BASE_URL = https://your-backend-api.com/api
- * 3. Redeploy the application
+ * Railway Backend: https://rocdashboard-production.up.railway.app/api
+ * Vercel Frontend: https://rocdashboard.vercel.app
  * 
- * Note: If backend is deployed separately, make sure to set CORS headers
- * to allow requests from your Vercel domain.
+ * Note: CORS is configured in Railway backend to allow Vercel domain
  */
 
 // Get API base URL from environment variable or use default
@@ -26,18 +23,19 @@ const getApiBaseUrl = () => {
     return envApiUrl.replace(/\/$/, '');
   }
   
-  // Default: use relative path
-  // - In development: Works with Vite proxy (see vite.config.js)
-  // - In production: Assumes backend is on same domain or via reverse proxy
+  // Production fallback - hardcoded Railway backend URL
+  if (import.meta.env.PROD) {
+    return 'https://rocdashboard-production.up.railway.app/api';
+  }
+  
+  // Default: use relative path for development
   return '/api';
 };
 
 export const API_BASE_URL = getApiBaseUrl();
 
-// Log API configuration only in development mode when needed
-if (import.meta.env.DEV && import.meta.env.VITE_DEBUG_API === 'true') {
-  console.log('[API Config] Environment:', import.meta.env.MODE);
-  console.log('[API Config] API Base URL:', API_BASE_URL);
-  console.log('[API Config] VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL || '(not set, using default /api)');
-}
+// Log API configuration for debugging
+console.log('[API Config] Environment:', import.meta.env.MODE);
+console.log('[API Config] API Base URL:', API_BASE_URL);
+console.log('[API Config] VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL || '(not set, using fallback)');
 
