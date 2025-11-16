@@ -61,9 +61,10 @@ htmlcov/
 *.cover
 .hypothesis/
 
-# Data files (optional - uncomment if you don't want to track CSV files)
-# data/*.csv
-# centroid/*.csv
+# Data files (do not track CSV/XLSX data files in git; they are managed at runtime)
+data/*.csv
+data/*.xlsx
+centroid/*.csv
 
 # OS
 Thumbs.db
