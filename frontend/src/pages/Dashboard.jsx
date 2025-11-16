@@ -32,6 +32,7 @@ import { getGradientCard, getKPICard, TEXT_STYLES, cn } from "../constants/style
 import { X, Search, ChevronLeft, ChevronRight, Download } from "react-feather";
 import { useMachineFilters } from "../hooks/useMachineFilters.js";
 import { exportMachinesToCSV } from "../utils/machineUtils.js";
+import { API_BASE_URL } from "../utils/apiConfig.js";
 import toast from 'react-hot-toast';
 
 // Simple compact tooltip component - defined outside to avoid React hooks error
@@ -390,8 +391,8 @@ export default function Dashboard() {
       try {
         setLoadingMonthly(true);
         
-        // Fetch data from API
-        const response = await fetch('/api/monthly-machines');
+        // Fetch data from Railway backend via API_BASE_URL
+        const response = await fetch(`${API_BASE_URL}/monthly-machines`);
         
         if (response.ok) {
           const result = await response.json();
