@@ -3,7 +3,8 @@
   "outputDirectory": "frontend/dist",
   "installCommand": "cd frontend && rm -rf node_modules package-lock.json .npm .cache && npm cache clean --force && npm install",
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "VITE_API_BASE_URL": "https://rocdashboard-production.up.railway.app/api"
   },
   "cleanUrls": false,
   "trailingSlash": false,
@@ -32,34 +33,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/tools",
-      "destination": "/api/tools.json"
-    },
-    {
-      "source": "/api/baby-parts",
-      "destination": "/api/baby-parts.json"
-    },
-    {
-      "source": "/api/machines",
-      "destination": "/api/machines.json"
-    },
-    {
-      "source": "/api/engineers",
-      "destination": "/api/engineers.json"
-    },
-    {
-      "source": "/api/stock-parts",
-      "destination": "/api/stock-parts.json"
-    },
-    {
-      "source": "/api/fsl-locations",
-      "destination": "/api/fsl-locations.json"
-    },
-    {
-      "source": "/api/monthly-machines",
-      "destination": "/api/monthly-machines.json"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
