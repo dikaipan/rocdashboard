@@ -31,7 +31,10 @@ const getApiBaseUrl = () => {
 export const API_BASE_URL = getApiBaseUrl();
 
 // Log API configuration for debugging
-console.log('[API Config] Environment:', import.meta.env.MODE);
-console.log('[API Config] API Base URL:', API_BASE_URL);
-console.log('[API Config] VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL || '(not set, using fallback)');
+const DEBUG_API = import.meta.env.VITE_DEBUG_API === 'true';
+if (DEBUG_API) {
+  console.log('[API Config] Environment:', import.meta.env.MODE);
+  console.log('[API Config] API Base URL:', API_BASE_URL);
+  console.log('[API Config] VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL || '(not set, using fallback)');
+}
 
