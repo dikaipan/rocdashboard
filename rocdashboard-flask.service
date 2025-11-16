@@ -1,0 +1,25 @@
+# Systemd service file for ROC Dashboard Flask Backend
+# Place this in: /etc/systemd/system/rocdashboard-flask.service
+
+[Unit]
+Description=ROC Dashboard Flask Backend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data  # Change to your user
+Group=www-data  # Change to your group
+WorkingDirectory=/path/to/rocdash  # Change to your actual path
+Environment="PATH=/path/to/rocdash/venv/bin"  # If using virtualenv
+ExecStart=/usr/bin/python3 /path/to/rocdash/app.py  # Change paths
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=append:/var/log/rocdashboard/flask.log
+StandardError=append:/var/log/rocdashboard/flask-error.log
+
+[Install]
+WantedBy=multi-user.target

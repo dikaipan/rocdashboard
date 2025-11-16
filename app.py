@@ -166,4 +166,8 @@ def create_app() -> Flask:
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)
+    # Get port from environment variable (for Railway, Render, etc.) or use config
+    port = int(os.environ.get('PORT', Config.PORT))
+    # Bind to 0.0.0.0 for production deployment
+    host = os.environ.get('HOST', '0.0.0.0')
+    app.run(host=host, port=port, debug=Config.DEBUG)
